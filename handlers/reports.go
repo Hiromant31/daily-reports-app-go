@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"yourmodule/models"
+	"github.com/Hiromant31/daily-reports-app-go/models"
 
 	"github.com/labstack/echo/v4"
 )

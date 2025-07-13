@@ -7,7 +7,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 
-	"yourmodule/handlers"
+	"github.com/Hiromant31/daily-reports-app-go/handlers"
 )
 
 func main() {
