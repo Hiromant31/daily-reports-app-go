@@ -1,4 +1,4 @@
-module github.com/yourname/daily-reports-app-go
+module github.com/Hiromant31/daily-reports-app-go
 
 go 1.21
 
