@@ -2,31 +2,22 @@ package main
 
 import (
 	"log"
-	"os"
+	"net/http"
 
 	"github.com/joho/godotenv"
-	"github.com/labstack/echo/v4"
-
-	"github.com/Hiromant31/daily-reports-app-go/handlers"
 )
 
 func main() {
-	_ = godotenv.Load(".env")
-
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Ошибка при загрузке .env файла")
 	}
 
-	e := echo.New()
+	InitDB() // Подключение к базе данных
 
-	e.GET("/api/ping", func(c echo.Context) error {
-		return c.String(200, "pong")
-	})
+	http.HandleFunc("/sse/reports", ReportsSSEHandler)
+	http.HandleFunc("/api/reports", CreateReportHandler)
 
-	e.POST("/api/report", handlers.CreateReport)
-	e.GET("/api/report/:user_id", handlers.GetReportsByUser)
-
-	log.Println("Server listening on port", port)
-	e.Logger.Fatal(e.Start(":" + port))
+	log.Println("Сервер запущен на :8080")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
